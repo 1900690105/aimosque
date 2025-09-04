@@ -84,6 +84,7 @@ export default function Navbar() {
                 { to: "/", label: "Home", end: true },
                 { to: "/mosque", label: "Mosques" },
                 // { to: "/player", label: "My Prayers" },
+                { to: "/product", label: "Product" },
                 { to: "/resource", label: "Resources" },
                 { to: "/donate", label: "Donate" },
               ].map(({ to, label, end }) => (
@@ -249,6 +250,20 @@ export default function Navbar() {
                   Mosques
                 </div>
               </NavLink>
+
+              <Link
+                to="/product"
+                className="block text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                onClick={toggleMenu}
+              >
+                <div className="flex items-center py-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                    <rect x="3" y="7" width="18" height="13" rx="2" />
+                    <path d="M3 7V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2" />
+                  </svg>
+                  Product
+                </div>
+              </Link>
 
               <NavLink
                 to="/player"

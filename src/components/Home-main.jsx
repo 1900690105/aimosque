@@ -30,7 +30,7 @@ export default function HomeMain() {
   const scaleOnHover = { scale: 1.03 };
   const glowOnHover = { boxShadow: "0 4px 32px 0 rgba(59,130,246,0.10)" };
   return (
-    <div>
+    <div className="bg-black min-h-screen">
       <div className="flex-1">
         <div className="relative bg-gradient-to-b from-primary/10 via-background/95 to-background pt-16 pb-24">
           <div className="container relative z-10 mx-auto px-4 text-center">
