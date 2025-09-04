@@ -5,7 +5,7 @@ export default function About() {
         <div className="container mx-auto px-4 py-12">
             <h1 className="text-3xl font-bold mb-4 text-primary">About AITHEONIX</h1>
             <p className="text-lg text-muted-foreground mb-4">
-                At <span className="font-semibold">AITHEONIX</span>, we are passionate
+                At <span className="font-semibold">AITHEONIX</span> , we are passionate
                 about creating innovative technology solutions that empower businesses
                 and individuals to thrive in the digital era.
             </p>
