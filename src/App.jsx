@@ -13,6 +13,7 @@ import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
 import AiNoorMosque from "./components/pages/AiNoorMosque";
 import AdminPanel from "./components/pages/auth/AdminPanel";
+import ProfilePanel from "./components/pages/auth/ProfilePanel";
 import About from "./components/pages/About";
 import Contact from "./components/pages/Contact";
 import PrivacyPolicy from "./components/pages/PrivacyPolicy";
@@ -34,6 +35,7 @@ function App() {
           <Route path="/resource" element={<Resource />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<AdminPanel />} />
+          <Route path="/profile" element={<ProfilePanel userData={JSON.parse(localStorage.getItem("userData") || "{}")} onSave={(data) => { localStorage.setItem("userData", JSON.stringify(data)); alert("Profile updated successfully!"); }} />} />
           <Route path="/ai_noor_mosque" element={<AiNoorMosque />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
