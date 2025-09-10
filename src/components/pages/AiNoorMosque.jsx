@@ -1,9 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 
 function AiNoorMosque() {
       const [activeTab, setActiveTab] = useState("prayer-schedule");
-  
+      const [prayerTimings, setPrayerTimings] = useState({
+        fajr: "05:30",
+        dhuhr: "13:15",
+        asr: "16:45",
+        maghrib: "19:30",
+        isha: "21:00",
+        jummah: "13:30",
+      });
+
+      useEffect(() => {
+        const userData = JSON.parse(localStorage.getItem("userData") || "{}");
+        if (userData.prayerTimings) {
+          setPrayerTimings(userData.prayerTimings);
+        }
+      }, []);
+
       const switchTab = (tab) => {
         setActiveTab(tab);
       };
@@ -189,7 +204,7 @@ function AiNoorMosque() {
                                   <td
                                     className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"
                                   >
-                                    5:30
+                                    {prayerTimings.fajr}
                                   </td>
                                   <td
                                     className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"
@@ -212,7 +227,7 @@ function AiNoorMosque() {
                                   <td
                                     className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"
                                   >
-                                    13:15
+                                    {prayerTimings.dhuhr}
                                   </td>
                                   <td
                                     className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"
@@ -235,7 +250,7 @@ function AiNoorMosque() {
                                   <td
                                     className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"
                                   >
-                                    16:45
+                                    {prayerTimings.asr}
                                   </td>
                                   <td
                                     className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"
@@ -258,7 +273,7 @@ function AiNoorMosque() {
                                   <td
                                     className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"
                                   >
-                                    19:30
+                                    {prayerTimings.maghrib}
                                   </td>
                                   <td
                                     className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"
@@ -281,7 +296,7 @@ function AiNoorMosque() {
                                   <td
                                     className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"
                                   >
-                                    21:00
+                                    {prayerTimings.isha}
                                   </td>
                                   <td
                                     className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"
@@ -304,7 +319,7 @@ function AiNoorMosque() {
                                   <td
                                     className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"
                                   >
-                                    13:30
+                                    {prayerTimings.jummah}
                                   </td>
                                   <td
                                     className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"
