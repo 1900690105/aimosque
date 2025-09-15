@@ -30,7 +30,7 @@ export default function HomeMain() {
   const scaleOnHover = { scale: 1.03 };
   const glowOnHover = { boxShadow: "0 4px 32px 0 rgba(59,130,246,0.10)" };
   return (
-    <div className="bg-black min-h-screen">
+    <div className="min-h-screen">
       <div className="flex-1">
         <div className="relative bg-gradient-to-b from-primary/10 via-background/95 to-background pt-16 pb-24">
           <div className="container relative z-10 mx-auto px-4 text-center">
@@ -82,7 +82,7 @@ export default function HomeMain() {
                 whileTap={{ scale: 0.9 }}
               >
                 <Link
-                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border bg-background hover:text-accent-foreground h-11 rounded-md px-8 border-primary hover:bg-primary/10"
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border bg-background hover:text-foreground h-11 rounded-md px-8 border-primary hover:bg-primary/10"
                   to="/chat"
                 >
                   Ask Islamic Questions

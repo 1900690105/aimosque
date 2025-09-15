@@ -2,7 +2,7 @@ import Card from "../../ui/Card"
 import Label from "../../ui/Label"
 import { CheckCircle2, Clock, Landmark, QrCode, User } from "../../icons/Icons"
 
-function ReviewSubmit({ formData }) {
+function ReviewSubmit({ formData, buttonText = "Save & Activate", title = "Review & Submit", description = "Verify your information before activating the mosque profile" }) {
   return (
     <div className="space-y-6 max-w-3xl mx-auto">
       <div className="text-center mb-8">
@@ -11,8 +11,8 @@ function ReviewSubmit({ formData }) {
             <CheckCircle2 className="h-6 w-6 text-white" />
           </div>
         </div>
-        <h3 className="text-xl font-semibold text-primary-800">Review & Submit</h3>
-        <p className="text-sm text-primary-600 mt-1">Verify your information before activating the mosque profile</p>
+        <h3 className="text-xl font-semibold text-primary-800">{title}</h3>
+        <p className="text-sm text-primary-600 mt-1">{description}</p>
       </div>
 
       <Card className="border-0 shadow-lg overflow-hidden rounded-xl">
