@@ -1,7 +1,6 @@
 import Input from "../../ui/Input";
 import Label from "../../ui/Label";
-import Switch from "../../ui/Switch";
-import { BanknoteIcon, CreditCard, Landmark, QrCode } from "../../icons/Icons";
+import { BanknoteIcon, Landmark } from "../../icons/Icons";
 
 function MosqueFinancial({ formData, updateFormData }) {
   return (
@@ -29,6 +28,7 @@ function MosqueFinancial({ formData, updateFormData }) {
               <p className="font-bold">Bank Details</p>
             </div>
 
+            {/* Bank Name */}
             <div className="space-y-2">
               <Label
                 htmlFor="bankName"
@@ -40,12 +40,19 @@ function MosqueFinancial({ formData, updateFormData }) {
                 id="bankName"
                 type="text"
                 value={formData.bankName || ""}
-                onChange={(e) => updateFormData({ bankName: e.target.value })}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  const pattern = /^[a-zA-Z\s&]*$/; // letters, spaces, &
+                  if (pattern.test(value)) {
+                    updateFormData({ bankName: value });
+                  }
+                }}
                 placeholder="Enter mosque bank name"
                 className="border-emerald-200 focus:border-emerald-300 focus:ring focus:ring-emerald-200 focus:ring-opacity-50"
               />
             </div>
 
+            {/* Account Number */}
             <div className="space-y-2">
               <Label
                 htmlFor="bankAccountNumber"
@@ -57,14 +64,19 @@ function MosqueFinancial({ formData, updateFormData }) {
                 id="bankAccountNumber"
                 type="text"
                 value={formData.bankAccountNumber || ""}
-                onChange={(e) =>
-                  updateFormData({ bankAccountNumber: e.target.value })
-                }
+                onChange={(e) => {
+                  const value = e.target.value;
+                  const pattern = /^[0-9]{0,18}$/; // only digits, up to 18
+                  if (pattern.test(value)) {
+                    updateFormData({ bankAccountNumber: value });
+                  }
+                }}
                 placeholder="Enter mosque bank account number"
                 className="border-emerald-200 focus:border-emerald-300 focus:ring focus:ring-emerald-200 focus:ring-opacity-50"
               />
             </div>
 
+            {/* IFSC Code */}
             <div className="space-y-2">
               <Label
                 htmlFor="bankIFSC"
@@ -76,12 +88,20 @@ function MosqueFinancial({ formData, updateFormData }) {
                 id="bankIFSC"
                 type="text"
                 value={formData.bankIFSC || ""}
-                onChange={(e) => updateFormData({ bankIFSC: e.target.value })}
-                placeholder="Enter IFSC code"
-                className="border-emerald-200 focus:border-emerald-300 focus:ring focus:ring-emerald-200 focus:ring-opacity-50"
+                onChange={(e) => {
+                  const value = e.target.value.toUpperCase();
+                  // const pattern = /^[A-Z]{0,4}0?[0-9]{0,6}$/;
+                  // matches partial typing of IFSC (final format: 4 letters + 0 + 6 digits)
+                  if (/^[A-Z0-9]*$/.test(value)) {
+                    updateFormData({ bankIFSC: value });
+                  }
+                }}
+                placeholder="Enter IFSC code (e.g. SBIN0001234)"
+                className="border-emerald-200 focus:border-emerald-300 focus:ring focus:ring-emerald-200 focus:ring-opacity-50 uppercase"
               />
             </div>
 
+            {/* Account Holder Name */}
             <div className="space-y-2">
               <Label
                 htmlFor="bankAccountHolder"
@@ -93,70 +113,19 @@ function MosqueFinancial({ formData, updateFormData }) {
                 id="bankAccountHolder"
                 type="text"
                 value={formData.bankAccountHolder || ""}
-                onChange={(e) =>
-                  updateFormData({ bankAccountHolder: e.target.value })
-                }
+                onChange={(e) => {
+                  const value = e.target.value;
+                  const pattern = /^[a-zA-Z\s]*$/; // only letters and spaces
+                  if (pattern.test(value)) {
+                    updateFormData({ bankAccountHolder: value });
+                  }
+                }}
                 placeholder="Enter account holder name"
                 className="border-emerald-200 focus:border-emerald-300 focus:ring focus:ring-emerald-200 focus:ring-opacity-50"
               />
             </div>
           </div>
         </div>
-
-        {/* UPI Section */}
-        <div className="p-6 rounded-xl border border-emerald-100 shadow-sm">
-          <div className="flex items-start gap-4">
-            <div className="p-2 rounded-lg shadow-sm">
-              <QrCode className="h-6 w-6 text-emerald-500" />
-            </div>
-            <div className="space-y-2 flex-1">
-              <Label htmlFor="upiId" className="text-primary-700 font-medium">
-                UPI ID for Donations
-              </Label>
-              <Input
-                id="upiId"
-                type="text"
-                value={formData.upiId || ""}
-                onChange={(e) => updateFormData({ upiId: e.target.value })}
-                placeholder="Enter UPI ID"
-                className="border-emerald-200 focus:border-emerald-300 focus:ring focus:ring-emerald-200 focus:ring-opacity-50"
-              />
-              <p className="text-xs text-primary-600">
-                For quick mobile payments
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Optional: Donation Tracking Section */}
-        {/* <div className="md:col-span-2 p-6 rounded-xl border border-emerald-100 shadow-sm">
-          <div className="flex items-start gap-4">
-            <div className="p-2 rounded-lg">
-              <CreditCard className="h-6 w-6 text-emerald-500" />
-            </div>
-            <div className="space-y-2 flex-1">
-              <div className="flex justify-between items-center">
-                <Label
-                  htmlFor="donationTracking"
-                  className="text-primary-700 font-medium"
-                >
-                  Donation Tracking
-                </Label>
-                <Switch
-                  id="donationTracking"
-                  checked={formData.enableDonationTracking || false}
-                  onChange={(e) =>
-                    updateFormData({ enableDonationTracking: e.target.checked })
-                  }
-                />
-              </div>
-              <p className="text-sm text-primary-600">
-                Enable donation tracking to keep records of all donations and
-                generate reports.
-              </p>
-            </div>
-          </div>
-        </div> */}
       </div>
     </div>
   );
@@ -166,8 +135,7 @@ export default MosqueFinancial;
 
 // import Input from "../../ui/Input";
 // import Label from "../../ui/Label";
-// import Switch from "../../ui/Switch";
-// import { BanknoteIcon, CreditCard, Landmark, QrCode } from "../../icons/Icons";
+// import { BanknoteIcon, Landmark, QrCode } from "../../icons/Icons";
 
 // function MosqueFinancial({ formData, updateFormData }) {
 //   return (
@@ -186,14 +154,16 @@ export default MosqueFinancial;
 //         </p>
 //       </div>
 
-//       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-center">
+//       <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
+//         {/* Bank Details Section */}
 //         <div className="p-6 rounded-xl border border-emerald-100 shadow-sm">
-//           <div className="">
-//             <div className="p-2 rounded-lg shadow-sm flex gap-1">
+//           <div className="space-y-4">
+//             <div className="p-2 rounded-lg shadow-sm flex gap-2 items-center mb-4">
 //               <Landmark className="h-6 w-6 font-bold text-emerald-500" />
-//               <p className="font-bold">Back Details</p>
+//               <p className="font-bold">Bank Details</p>
 //             </div>
-//             <div className="space-y-2 flex-1">
+
+//             <div className="space-y-2">
 //               <Label
 //                 htmlFor="bankName"
 //                 className="text-primary-700 font-medium"
@@ -201,20 +171,18 @@ export default MosqueFinancial;
 //                 Bank Name
 //               </Label>
 //               <Input
-//                 id="bankAccount"
+//                 id="bankName"
 //                 type="text"
-//                 value={formData.bankName}
+//                 value={formData.bankName || ""}
 //                 onChange={(e) => updateFormData({ bankName: e.target.value })}
 //                 placeholder="Enter mosque bank name"
 //                 className="border-emerald-200 focus:border-emerald-300 focus:ring focus:ring-emerald-200 focus:ring-opacity-50"
 //               />
-//               {/* <p className="text-xs text-primary-600">
-//                 For direct bank transfers and donations
-//               </p> */}
 //             </div>
-//             <div className="space-y-2 flex-1">
+
+//             <div className="space-y-2">
 //               <Label
-//                 htmlFor="bankAccount"
+//                 htmlFor="bankAccountNumber"
 //                 className="text-primary-700 font-medium"
 //               >
 //                 Account Number
@@ -222,18 +190,16 @@ export default MosqueFinancial;
 //               <Input
 //                 id="bankAccountNumber"
 //                 type="text"
-//                 value={formData.bankAccountNumber}
+//                 value={formData.bankAccountNumber || ""}
 //                 onChange={(e) =>
 //                   updateFormData({ bankAccountNumber: e.target.value })
 //                 }
 //                 placeholder="Enter mosque bank account number"
 //                 className="border-emerald-200 focus:border-emerald-300 focus:ring focus:ring-emerald-200 focus:ring-opacity-50"
 //               />
-//               {/* <p className="text-xs text-primary-600">
-//                 For direct bank transfers and donations
-//               </p> */}
 //             </div>
-//             <div className="space-y-2 flex-1">
+
+//             <div className="space-y-2">
 //               <Label
 //                 htmlFor="bankIFSC"
 //                 className="text-primary-700 font-medium"
@@ -243,91 +209,33 @@ export default MosqueFinancial;
 //               <Input
 //                 id="bankIFSC"
 //                 type="text"
-//                 value={formData.bankIFSC}
+//                 value={formData.bankIFSC || ""}
 //                 onChange={(e) => updateFormData({ bankIFSC: e.target.value })}
-//                 placeholder="Enter mosque bank account number"
+//                 placeholder="Enter IFSC code"
 //                 className="border-emerald-200 focus:border-emerald-300 focus:ring focus:ring-emerald-200 focus:ring-opacity-50"
 //               />
-//               {/* <p className="text-xs text-primary-600">
-//                 For direct bank transfers and donations
-//               </p> */}
 //             </div>
-//             <div className="space-y-2 flex-1">
+
+//             <div className="space-y-2">
 //               <Label
-//                 htmlFor="bankAccount"
+//                 htmlFor="bankAccountHolder"
 //                 className="text-primary-700 font-medium"
 //               >
 //                 Account Holder Name
 //               </Label>
 //               <Input
-//                 id="bankAccount"
+//                 id="bankAccountHolder"
 //                 type="text"
-//                 value={formData.bankAccountHolder}
+//                 value={formData.bankAccountHolder || ""}
 //                 onChange={(e) =>
 //                   updateFormData({ bankAccountHolder: e.target.value })
 //                 }
-//                 placeholder="Enter mosque bank account number"
+//                 placeholder="Enter account holder name"
 //                 className="border-emerald-200 focus:border-emerald-300 focus:ring focus:ring-emerald-200 focus:ring-opacity-50"
 //               />
-//               {/* <p className="text-xs text-primary-600">
-//                 For direct bank transfers and donations
-//               </p> */}
 //             </div>
 //           </div>
 //         </div>
-//         {/* <p className="flex justify-center">OR</p> */}
-//         <div className="p-6 rounded-xl border border-emerald-100 shadow-sm">
-//           <div className="flex items-start gap-4">
-//             <div className="p-2 rounded-lg shadow-sm">
-//               <QrCode className="h-6 w-6 text-emerald-500" />
-//             </div>
-//             <div className="space-y-2 flex-1">
-//               <Label htmlFor="upiId" className="text-primary-700 font-medium">
-//                 UPI ID for Donations
-//               </Label>
-//               <Input
-//                 id="upiId"
-//                 type="text"
-//                 value={formData.upiId}
-//                 onChange={(e) => updateFormData({ upiId: e.target.value })}
-//                 placeholder="Enter UPI ID"
-//                 className="border-emerald-200 focus:border-emerald-300 focus:ring focus:ring-emerald-200 focus:ring-opacity-50"
-//               />
-//               <p className="text-xs text-primary-600">
-//                 For quick mobile payments
-//               </p>
-//             </div>
-//           </div>
-//         </div>
-
-//         {/* <div className="md:col-span-2 p-6 rounded-xl border border-emerald-100 shadow-sm">
-//           <div className="flex items-start gap-4">
-//             <div className="p-2 rounded-lg">
-//               <CreditCard className="h-6 w-6 text-emerald-500" />
-//             </div>
-//             <div className="space-y-2 flex-1">
-//               <div className="flex justify-between items-center">
-//                 <Label
-//                   htmlFor="donationTracking"
-//                   className="text-primary-700 font-medium"
-//                 >
-//                   Donation Tracking
-//                 </Label>
-//                 <Switch
-//                   id="donationTracking"
-//                   checked={formData.enableDonationTracking}
-//                   onChange={(e) =>
-//                     updateFormData({ enableDonationTracking: e.target.checked })
-//                   }
-//                 />
-//               </div>
-//               <p className="text-sm text-primary-600">
-//                 Enable donation tracking to keep records of all donations and
-//                 generate reports.
-//               </p>
-//             </div>
-//           </div>
-//         </div> */}
 //       </div>
 //     </div>
 //   );

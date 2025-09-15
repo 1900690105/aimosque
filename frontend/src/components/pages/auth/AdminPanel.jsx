@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import AdminLogin from "./AdminLogin";
 import MosqueRegistration from "./MosqueRegistration";
 import MosqueFinancial from "./MosqueFinancial";
 import PrayerTimings from "./PrayerTimings";
@@ -12,7 +11,6 @@ import Card from "../../ui/Card";
 import { ChevronLeft, ChevronRight, Save } from "../../icons/Icons";
 
 const steps = [
-  { id: "login", title: "Admin Login", icon: "🔐" },
   { id: "registration", title: "Mosque Registration", icon: "🕌" },
   { id: "financial", title: "Financial Details", icon: "💳" },
   { id: "prayer", title: "Prayer Timings", icon: "🕰️" },
@@ -21,6 +19,7 @@ const steps = [
 
 function AdminPanel() {
   const [currentStep, setCurrentStep] = useState(0);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     adminId: "",
     password: "",
@@ -62,6 +61,7 @@ function AdminPanel() {
   };
 
   const handleSubmit = async () => {
+    setLoading(true);
     try {
       const formDataToSend = new FormData();
 
@@ -93,7 +93,7 @@ function AdminPanel() {
         formDataToSend.append("mosqueImage", formData.mosqueImage);
       }
 
-      const res = await fetch("http://localhost:5000/api/saveMosqueProfile", {
+      const res = await fetch("http://localhost:5000/api/mosque/save-profile", {
         method: "POST",
         body: formDataToSend,
       });
@@ -103,15 +103,13 @@ function AdminPanel() {
       alert(data.message);
     } catch (err) {
       console.error("❌ Error submitting form:", err);
+    } finally {
+      setLoading(false);
     }
   };
 
   const renderStepContent = () => {
     switch (steps[currentStep].id) {
-      case "login":
-        return (
-          <AdminLogin formData={formData} updateFormData={updateFormData} />
-        );
       case "registration":
         return (
           <MosqueRegistration
@@ -231,9 +229,23 @@ function AdminPanel() {
             ) : (
               <Button
                 onClick={handleSubmit}
-                className="flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white shadow-md"
+                disabled={
+                  loading ||
+                  !formData.adminId ||
+                  !formData.password ||
+                  !formData.bankAccountNumber ||
+                  !formData.bankIFSC ||
+                  !formData.prayerTimings
+                }
+                className=" bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white shadow-md"
               >
-                Save & Activate <Save className="h-4 w-4" />
+                {loading ? (
+                  "Loading..."
+                ) : (
+                  <span className="flex items-center gap-2">
+                    Save & Activate <Save className="h-4 w-4" />
+                  </span>
+                )}
               </Button>
             )}
           </div>
