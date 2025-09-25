@@ -15,25 +15,29 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/admin/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ adminId, password }),
-        credentials: "include", // allows cookies if backend sets JWT cookie
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/admin/login`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ adminId, password }),
+          credentials: "include", // allows cookies if backend sets JWT cookie
+        }
+      );
 
       const data = await res.json();
 
       if (!res.ok) {
         setError(data.message || "Login failed");
       } else {
-        // Store token (if backend sends it)
+        sessionStorage.setItem("adminId", adminId);
         localStorage.setItem("token", data.token);
-        alert("✅ Login successful!");
+
+        alert(`✅ Login successful!`);
         window.location.href = "/admin/dashboard"; // redirect to admin dashboard
       }
     } catch (err) {
-      setError("Something went wrong. Please try again.");
+      setError("Something went wrong. Please try again.", err);
     } finally {
       setLoading(false);
     }

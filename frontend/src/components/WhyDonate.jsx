@@ -4,7 +4,7 @@ function WhyDonate() {
   const [donations, setDonations] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/donationsdata") // update if your backend runs on another port
+    fetch(`${import.meta.env.VITE_API_URL}/api/donate/all`) // update if your backend runs on another port
       .then((res) => res.json())
       .then((data) => setDonations(data))
       .catch((err) => console.error("Error fetching donations:", err));

@@ -55,7 +55,9 @@ export default function Donate() {
 
   const fetchMosques = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/mosques");
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/mosque`
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -96,14 +98,17 @@ export default function Donate() {
   };
 
   const createOrder = async (amount, mosqueId) => {
-    const response = await fetch("http://localhost:5000/api/create-order", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        amount: amount,
-        mosqueId: mosqueId,
-      }),
-    });
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/create-order`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount: amount,
+          mosqueId: mosqueId,
+        }),
+      }
+    );
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
@@ -114,11 +119,14 @@ export default function Donate() {
   };
 
   const savePayment = async (paymentData) => {
-    const response = await fetch("http://localhost:5000/api/save-payment", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(paymentData),
-    });
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/save-payment`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(paymentData),
+      }
+    );
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));

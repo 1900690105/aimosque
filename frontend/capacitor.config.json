@@ -1,0 +1,6 @@
+{
+  "appId": "com.aimiqdar.app",
+  "appName": "aimiqdar",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}

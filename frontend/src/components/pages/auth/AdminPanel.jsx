@@ -93,10 +93,13 @@ function AdminPanel() {
         formDataToSend.append("mosqueImage", formData.mosqueImage);
       }
 
-      const res = await fetch("http://localhost:5000/api/mosque/save-profile", {
-        method: "POST",
-        body: formDataToSend,
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/mosque/save-profile`,
+        {
+          method: "POST",
+          body: formDataToSend,
+        }
+      );
 
       const data = await res.json();
       console.log("✅ Success:", data);

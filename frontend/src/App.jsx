@@ -19,13 +19,16 @@ import Contact from "./components/pages/Contact";
 import PrivacyPolicy from "./components/pages/PrivacyPolicy";
 import Terms from "./components/pages/Terms";
 import ProductPage from "./components/pages/Product";
+import AdminDashboard from "./components/pages/AdminDashbaord";
+import MosqueAdminDashboard from "./components/pages/AdminDashbaord";
 
 function App() {
+  const hideLayout = location.pathname === "/admin/dashboard";
   return (
     <Router>
       <div className="flex min-h-screen flex-col">
         {/* Main layout */}
-        <Navbar />
+        {!hideLayout && <Navbar />}
         <Routes>
           <Route path="/" element={<HomeMain />} />
           <Route path="/donate" element={<Donate />} />
@@ -35,15 +38,27 @@ function App() {
           <Route path="/resource" element={<Resource />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<AdminPanel />} />
-          <Route path="/profile" element={<ProfilePanel userData={JSON.parse(localStorage.getItem("userData") || "{}")} onSave={(data) => { localStorage.setItem("userData", JSON.stringify(data)); alert("Profile updated successfully!"); }} />} />
+          <Route
+            path="/profile"
+            element={
+              <ProfilePanel
+                userData={JSON.parse(localStorage.getItem("userData") || "{}")}
+                onSave={(data) => {
+                  localStorage.setItem("userData", JSON.stringify(data));
+                  alert("Profile updated successfully!");
+                }}
+              />
+            }
+          />
           <Route path="/ai_noor_mosque" element={<AiNoorMosque />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/product" element={<ProductPage />} />
+          <Route path="/admin/dashboard" element={<MosqueAdminDashboard />} />
         </Routes>
-        <Footer />
+        {!hideLayout && <Footer />}
       </div>
     </Router>
   );

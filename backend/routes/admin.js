@@ -4,8 +4,11 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { Registration } = require("../models");
+const { getAdminById } = require("../controllers/adminController");
 
 const router = express.Router();
+
+router.get("/:adminId", getAdminById);
 
 // Check if Admin ID exists
 router.post("/check-admin-id", async (req, res) => {

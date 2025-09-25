@@ -29,7 +29,7 @@ module.exports = {
 //     "username": "postgres",
 //     "password": "NGikxxhil@18",
 //     "database": "mosquddedb",
-//     "host": "localhost",
+//     "host": "192.168.1.11",
 //     "dialect": "postgres"
 //   },
 //   "test": {

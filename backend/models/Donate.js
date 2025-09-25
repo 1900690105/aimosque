@@ -1,6 +1,6 @@
 // models/Donate.js
 module.exports = (sequelize, DataTypes) => {
-  const Donate = sequelize.define("Donate", {
+  const Donates = sequelize.define("Donates", {
     mosque_name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -30,5 +30,5 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   });
-  return Donate;
+  return Donates;
 };

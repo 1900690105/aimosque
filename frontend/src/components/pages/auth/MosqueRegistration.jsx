@@ -69,7 +69,7 @@ function MosqueRegistration({ formData, updateFormData }) {
     try {
       // Backend API endpoint
       const response = await fetch(
-        "http://localhost:5000/api/admin/check-admin-id",
+        `${import.meta.env.VITE_API_URL}/api/admin/check-admin-id`,
         {
           method: "POST",
           headers: {
@@ -143,7 +143,7 @@ function MosqueRegistration({ formData, updateFormData }) {
           </div>
         </div>
         <h3 className="text-xl font-semibold text-primary">
-          Mosque Registration
+          Mosque Registration by nikhil
         </h3>
         <p className="text-sm text-primary mt-1">
           Enter information about your mosque
@@ -234,7 +234,7 @@ function MosqueRegistration({ formData, updateFormData }) {
                 updateFormData({ adminId: e.target.value });
                 setAdminIdStatus(null); // Reset status when user types
               }}
-              placeholder="Unique id like Eg.mosquename8512"
+              placeholder="Unique id Eg.mosquename8512"
               className="border-emerald-200 focus:border-emerald-300 focus:ring focus:ring-emerald-200 focus:ring-opacity-50"
               required
             />

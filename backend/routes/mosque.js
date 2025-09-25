@@ -90,7 +90,7 @@ router.post("/save-profile", upload.single("mosqueImage"), async (req, res) => {
 });
 
 // Get all mosques
-router.get("/mosques", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const mosques = await MosqueDetail.findAll({
       attributes: ["id", "mosque_name", "admin_id"],
